@@ -69,35 +69,53 @@ report("#A5",answer)
 </script>
     </div>
     
+<hr/>
+    
 <h1>Working with Objects</h1>
     
 <div id="A6">
+    
 <h3>Create a function that takes a penguin object and returns an object that contains one attribute, the picture of that penguin</h3>
-<script>
-var answer="please complete";
-report("#A6",answer)    
-</script>
+    
+<pre>
+    var pictureFunction = function(object)
+    {
+        var pic = object.picture;
+        var picObj = {}
+           picObj.picture = pic;
+        return picObj;
+    }
+</pre>
     </div>
 
 <div id="A7">
+    
 <h3>Expand your function from the last one, so that the object it returns not only has a picture attribute, but also new attribute called quizMean, which is the mean of that penguins quiz scores</h3>
-<script>
-//be sure to test your function out.
-var answer="please complete";
-report("#A7",answer)    
-</script>
-    </div>
+    
+<pre>
+    var pictureFunction = function(object)
+    {
+        var pic = object.picture;
+        var quiz = d3.mean(object.quizes.map(getGrade));
+        var picObj = {}
+           picObj.picture = pic;
+           picObj.quizMean = quiz;
+        return picObj;
+    }
+</pre>
 
 <div id="A8">
+    
 <h3>With one line of code, return a list of objects that contain the picture and meanQuiz grade of all penguins</h3>
-<script>
-var answer="please complete";
-report("#A8",answer)    
-</script>
-    </div>
+    
+<pre>
+    classroom.map(pictureFunction)
+</pre>
 
 <div id="A9">
+    
 <h3>Create a new function that takes a penguin and extracts/generates the following info about a penguin in an object</h3>
+    
     <ul>
         <li>picture</li>
         <li>meanQuiz</li>
@@ -105,22 +123,30 @@ report("#A8",answer)
         <li>meanHW</li>
         <li>finalGrade</li>
     </ul>
-<script>
-var answer="please complete";
-report("#A9",answer)    
-</script>
-    </div>
+    
+<pre>
+    var pengInfo = function(penguin)
+    {
+        var info = {}
+            info.picture = penguin.picture;
+            info.meanQuiz = d3.mean(penguin.quizes.map(getGrade));
+            info.meanTest = d3.mean(penguin.test.map(getGrade));
+            info.meanHW = d3.mean(penguin.homework.map(getGrade));
+            info.finalGrade = penguin.final[0].grade;
+        return info;
+    }
+</pre>
 
 <div id="A10">
-<h3>With one line of code, return a list of objects where each objects contains all of the summary info about each penguin.</h3>
-<script>
-var answer="please complete";
-report("#A10",answer)    
-</script>
-    </div>
     
+<h3>With one line of code, return a list of objects where each objects contains all of the summary info about each penguin.</h3>
+    
+<pre>
+    classroom.map(pengInfo)
+</pre>
     
 <h1> Calculating a grade</h1>
+    
     <p>The penguin sylabus has the following information</p>
     <ul>
     <li>Final: 35%</li>
@@ -130,31 +156,44 @@ report("#A10",answer)
     </ul>
 
 <div id="B1">
+    
 <h3>Write a function that takes the classroom data and returns an array of objects.  Each object will have two attributes: a picture and the final grade in the class.</h3>
     
-<script>
+<pre>
+    var classData = classroom.map(pengInfo)
 
-    report("#B1",answer);
-</script>
-    </div>
-    
-    
-    
-    
+    var finalgrade = function(final,test,quiz,hw,pic)
+    {
+        var finFinal = 0.35 * final;
+        var finTest = 0.30 * test;
+        var finQuiz = 0.20 * quiz;
+        var finHw = 0.15 * hw;
+        var finEverything = finFinal + finTest + finQuiz + finHw;
+        var object = {}
+            object.picture = pic;
+            object.finalGrade = finEverything;
+        var array = [object]
+        return array;
+    }
+</pre>    
     
 <h1>Taking it day-by-day</h1>
 
 <p>Lets try something harder.  Below, you will be asked to solve a problem, however, the step by step instructions will not be available to you.  THe answers will be different that you have done before, but the process is largly the same.  Figure out how to solve the problem for one penguin and then exploit your solution to solve the problem for all penguins.</p>
-    
 
 <div id="C1">
+    
 <h3>Write a function to find the average grade of all students on the first quiz.</h3>
-    <p>Here is what you should get.=6.217391304347826</p>
-<script>
-var answer="Please Complete";
-report("#C1",answer)    
-</script>
-    </div>
+
+<p>Here is what you should get.=6.217391304347826</p>
+
+<pre>
+    var avQuiz = function(penguin)
+    {
+        var average = penguin.quizes[0].grade;
+        return average;
+    }
+</pre>
     
 <h1>What to submit</h1>
     Create a website to explain <em>how</em> you solved questions B1 and C1.  Placing code on a web site is required, use the 
