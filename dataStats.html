@@ -177,6 +177,8 @@ report("#A5",answer)
     }
 </pre>    
     
+    <p>For this problem, we started by writting a function that takes the final grade, the test average, the quiz average, and the homework average. These averages came as the result of a previous function. We then created variables that were the product of the inputs and their repective percentages. We finally created a variale that was the sum of all of the products, which was the final grade in the class. We then created an empty object and added the picture and the final grade. We created an array including the object before returning the array.</p>
+    
 <h1>Taking it day-by-day</h1>
 
 <p>Lets try something harder.  Below, you will be asked to solve a problem, however, the step by step instructions will not be available to you.  THe answers will be different that you have done before, but the process is largly the same.  Figure out how to solve the problem for one penguin and then exploit your solution to solve the problem for all penguins.</p>
@@ -193,7 +195,11 @@ report("#A5",answer)
         var average = penguin.quizes[0].grade;
         return average;
     }
+    
+    d3.mean(classroom.map(avQuiz));
 </pre>
+
+<p>We created a function that took a penguin. A variable was created to select the penguin's first quiz grade, which was returned. The final line of code took the average of a mapping of all of the first grades in the classroom.</p>
     
 <h1>What to submit</h1>
     Create a website to explain <em>how</em> you solved questions B1 and C1.  Placing code on a web site is required, use the 
@@ -215,22 +221,36 @@ var answer="Complete for Extra";
     
 report("#D1",answer)    
 </script>
+<pre>
+    var avDay = function(day)
+    {
+        var helper = function(penguin) 
+        {
+            return penguin.quizes[day].grade;
+        }
+        var avg=classroom.map(helper);
+        return d3.mean(avg);
+    }
+</pre>
+
     </div>
     
 <div id="D2">
 <h3>Write a function that returns an array of the class averages the students earn each day on thier quiz.</h3>
 <p>If you solved D1, you really just need a way to get an array of numbers to map.  You could do this by hand, but if you look up d3.range, you might find a better way to do it.</p>
-<script>
-var answer="Complete for Extra";
     
-report("#D2",answer);    
-</script>
+<pre>
+    var avFix = function()
+    {
+        var count = d3.range(0,23);
+        return count.map(avDay);
+    }
+    
+    avFix();
+</pre>
+    
     </div>
-    
 
-    
-
-    
     
 </body>
 </html>
